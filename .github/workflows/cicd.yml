@@ -28,6 +28,8 @@ jobs:
     steps:
     - name: checkout code repo
       uses: actions/checkout@v4
+      with:
+        fetch-depth: '0'
     - name: trivy dependency scan
       uses: aquasecurity/trivy-action@master
       continue-on-error: true
@@ -37,3 +39,6 @@ jobs:
         scan-ref: '.'
         exit-code: '1'
         severity: 'CRITICAL,HIGH'
+    - name: git leaks scan for detecting hardcoded secrets
+      uses: gitleaks/gitleaks-action@v3
+
