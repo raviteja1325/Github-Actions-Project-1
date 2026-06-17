@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  compile_code:
+  compile-code:
     name: code compile job
     runs-on: self-hosted
     steps:
@@ -24,7 +24,7 @@ jobs:
   
   security-check:
     runs-on: self-hosted
-    needs: compile_code
+    needs: compile-code
     steps:
     - name: checkout code repo
       uses: actions/checkout@v4
@@ -43,4 +43,18 @@ jobs:
       uses: gitleaks/gitleaks-action@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  unit-testing:
+    runs-on: self-hosted
+    needs: security-check
+    steps:
+    - name: checkout code repo
+      uses: actions/checkout@v4
+    - name: setup java installation
+      uses: actions/setup-java@v4
+      with:
+        version: '21'
+        distribution: 'temurin'
+    - name: run unit test
+      run: mvn test
 
