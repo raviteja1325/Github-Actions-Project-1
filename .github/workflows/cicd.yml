@@ -74,7 +74,7 @@ jobs:
     - name: Build and package code
       run: mvn package
     - name: sonar scan
-      uses: sonarsource/sonarqube-scan-action@v5
+      uses: sonarsource/sonarqube-scan-action@v6
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_URL: ${{ secrets.SONAR_URL }}
