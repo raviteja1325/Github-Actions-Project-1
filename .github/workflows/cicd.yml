@@ -29,7 +29,7 @@ jobs:
     - name: checkout code repo
       uses: actions/checkout@v4
     - name: trivy dependency scan
-      uses: aquasecurity/trivy-scan@master
+      uses: aquasecurity/trivy-action@master
       with:
         format: 'table'
         scan-type: 'fs'
