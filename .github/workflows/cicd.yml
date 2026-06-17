@@ -75,13 +75,14 @@ jobs:
       run: mvn package
     - name: sonar scan
       uses: sonarsource/sonarqube-scan-action@v6
-      with:
+      env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_URL: ${{ secrets.SONAR_URL }}
     - name: sonarqube quality gate check
       uses: sonarsource/sonarqube-quality-gate-action@v1
       with:
         polling-timeout: '60'
+      env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_URL: ${{ secrets.SONAR_URL }} 
       
