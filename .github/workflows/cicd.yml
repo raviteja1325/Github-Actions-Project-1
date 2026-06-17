@@ -58,3 +58,31 @@ jobs:
     - name: run unit test
       run: mvn test
 
+  build-project-and-sonarscan:
+    runs-on: self-hosted
+    needs: unit-testing
+    steps:
+    - name: checkout code repo
+      uses: actions/checkout@v4
+      with: 
+        fetch-depth: '0'
+    - name: setup java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Build and package code
+      run: mvn package
+    - name: sonar scan
+      uses: sonarqube/sonarqube-scan-action@v5
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_URL: ${{ secrets.SONAR_URL }}
+    - name: sonarqube quality gate check
+      uses: sonarqube/sonarqube-quality-gate-action@v1
+      with:
+        polling-timeout: '60'
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_URL: ${{ secrets.SONAR_URL }} 
+      
