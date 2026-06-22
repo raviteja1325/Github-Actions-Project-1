@@ -21,6 +21,8 @@ jobs:
         cache: 'maven'
     - name: build with maven
       run: mvn compile 
+    - name: run linting
+      run: mvn checkstyle:check
   
   security-check:
     runs-on: self-hosted
