@@ -9,7 +9,7 @@ on:
 jobs:
   compile-code:
     name: code compile job
-    runs-on: self-hosted
+    runs-on: ubuntu-latest   #self-hosted
     steps:
     - name: checkout code repo
       uses: actions/checkout@v4
